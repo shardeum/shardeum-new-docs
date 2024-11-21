@@ -1,0 +1,84 @@
+---
+title: VPS Service
+description: Steps to run a Shardeum Validator using a VPS / Cloud Provider
+---
+
+This guide provides instructions for setting up a Shardeum Validator using a VPS (Virtual Private Server) service like Google Cloud Platform (GCP, Contabo, Digital Ocean, AWS EC2, etc.)
+
+### Detailed Setup Process
+
+This approach offers more control over infrastructure compared to self-hosting. It requires selecting a cloud provider and configuring a server that meets Shardeum's node requirements. After setup, you'll use SSH to connect and launch the validator.
+
+**Key steps:**
+### 1. Choose a Cloud Provider
+The choice of cloud provider is largely a matter of personal preference. Here are some of the most popular options in our community:
+  - Contabo
+  - Google Cloud Platform, etc
+
+### 2. Server Configuration Requirements
+Ensure your server meets the [minimum requirements](/docs/node/run/validator/self-host#minimum-hardware-requirements)
+
+### 3. Instance Launch Process
+1. Log in to your chosen cloud provider and create a new instance, droplet, or virtual machine
+2. Open required ports: (port 9001, 8080 and 10001 )
+
+### 4. Connect to your server
+
+Depending on the cloud provider, you can connect to your server using the provider's console or SSH.
+
+```bash
+# Connect to your server
+ssh -i your-key.pem ubuntu@your-server-ip
+
+# Update system packages
+sudo apt update && sudo apt upgrade -y
+
+# Install required dependencies
+sudo apt install -y curl docker.io docker-compose
+```
+
+### 5. Security Configuration
+
+```bash
+# Configure UFW firewall
+sudo ufw allow ssh
+sudo ufw allow 8080/tcp  # Dashboard
+sudo ufw allow 9001/tcp  # Validator port
+sudo ufw allow 10001/tcp  # Validator port
+sudo ufw enable
+
+# (OPTIONAL) Create dedicated user
+sudo adduser shardeum
+sudo usermod -aG docker shardeum
+sudo usermod -aG sudo shardeum
+```
+
+### 6. Launch the node
+
+```bash
+# Switch to shardeum user
+su - shardeum
+
+# Download installer
+curl -O https://raw.githubusercontent.com/shardeum/validator-dashboard/dev/installer.sh && chmod +x installer.sh && ./installer.sh
+```
+
+### 7. Dashboard Access
+
+- Open web browser
+- Navigate to https://YOUR-SERVER-IP:8080
+- Create a password at first login
+Complete initial setup:
+  - Connect wallet
+  - Stake required SHM
+  - Start validator
+
+import { Callout } from 'fumadocs-ui/components/callout';
+
+<Callout>
+Disclaimer: Shardeum is not liable for any consequences arising from the use of third party services, including but not limited to performance issues, service outages, or any other operational failures.
+</Callout>
+
+## Resources
+
+- [Run a Shardeum Validator on GCP](https://kenny-io.hashnode.dev/how-to-run-a-shardeum-validator-node-on-gcp)
