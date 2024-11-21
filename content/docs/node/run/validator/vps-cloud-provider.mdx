@@ -3,11 +3,11 @@ title: VPS Service
 description: Steps to run a Shardeum Validator using a VPS / Cloud Provider
 ---
 
-This guide provides instructions for setting up a Shardeum Validator using a VPS (Virtual Private Server) service like Google Cloud Platform (GCP, Contabo, Digital Ocean, AWS EC2, etc.)
+This guide provides instructions for setting up a Shardeum Validator using a VPS (Virtual Private Server) service like Google Cloud Platform, Contabo, Digital Ocean, AWS EC2, etc.
 
 ### Detailed Setup Process
 
-This approach offers more control over infrastructure compared to self-hosting. It requires selecting a cloud provider and configuring a server that meets Shardeum's node requirements. After setup, you'll use SSH to connect and launch the validator.
+This approach offers more control over infrastructure compared to one-click node setup. It requires selecting a cloud provider and configuring a server that meets Shardeum's node requirements. After setup, you'll use SSH to connect and launch the validator.
 
 **Key steps:**
 ### 1. Choose a Cloud Provider
@@ -66,7 +66,7 @@ curl -O https://raw.githubusercontent.com/shardeum/validator-dashboard/dev/insta
 ### 7. Dashboard Access
 
 - Open web browser
-- Navigate to https://YOUR-SERVER-IP:8080
+- Navigate to `http://[YOUR-SERVER-IP]:8080`
 - Create a password at first login
 Complete initial setup:
   - Connect wallet
