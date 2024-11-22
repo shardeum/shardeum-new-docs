@@ -17,8 +17,8 @@ const resources = [
   { name: 'Shardeum University', description: 'Learn about Shardeum and blockchain technology', href: 'https://university.shardeum.org', icon: AcademicCapIcon },
   { name: 'Github', description: 'Explore and contribute to our open source projects', href: 'https://github.com/shardeum', icon: CodeBracketIcon },
   { name: 'Discord', description: 'Join our community and engage in discussions', href: 'https://discord.com/invite/shardeum', icon: ChatBubbleBottomCenterIcon },
-  { name: 'YouTube', description: 'Watch tutorials and talks on our YouTube channel', href: 'https://www.youtube.com/channel/UCShardeum', icon: VideoCameraIcon },
-  { name: 'Oss Webpage', description: 'Visit our open source webpage for more information', href: 'https://oss.shardeum.org', icon: GlobeAltIcon },
+  { name: 'YouTube', description: 'Watch tutorials and talks on our YouTube channel', href: 'https://www.youtube.com/@Shardeum', icon: VideoCameraIcon },
+  { name: 'OSS Webpage', description: 'Visit our open source webpage for more information', href: 'https://shardeum.org/open-source/', icon: GlobeAltIcon },
 ];
 const callsToAction = [
   { name: 'Watch Shardeum', href: 'https://youtube.com/playlist?list=PLh0cCRPj3dydrsw2sIBfuodyrvc_PZloY&si=ivoyWlKYkHs0mkRe', icon: PlayCircleIcon },
