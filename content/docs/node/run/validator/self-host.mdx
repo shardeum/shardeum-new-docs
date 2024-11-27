@@ -37,6 +37,10 @@ description: Steps to run a Self Hosted Shardeum Validator on Your Own Hardware
   />
 </Cards>
 
+<Callout title="" type="info">
+The instructions on this page are primarily written for Ubuntu/Linux operating systems. If you are using a different operating system you will need to adapt the commands and steps accordingly. The core concepts remain the same, but package installation methods and system commands may differ.
+</Callout>
+
 For true decentralization and censorship resistance, it's crucial to minimize reliance on cloud providers. Self-hosting your Shardeum validator on personal hardware offer several advantages:
 
 1. Enhanced network security and resilience
@@ -138,28 +142,6 @@ Check that docker is working with (should return version 20.10.12 or higher):
 docker --version
 ```
 
-### Install docker-compose
-
-<Tabs items={["Linux", "MacOS"]}>
-```ts tab="Linux"
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-```
- 
-```ts tab="MacOS"
-brew install docker-compose
-``` 
-</Tabs>
-
-Setup permissions for docker-compose:
-
-```
-sudo chmod +x /usr/local/bin/docker-compose
-```
-
-Check that docker-compose is working with (should return version 1.29.2 or higher):
-```
-docker-compose --version
-```
 
 
 ## Download and Install Validator
