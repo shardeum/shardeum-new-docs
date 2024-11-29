@@ -1,0 +1,85 @@
+---
+title: Remote Breakpoint Debugging
+description: How to Debug Shardeum Validator on a Remote Server
+---
+
+Debugging remote applications can be challenging, but with the right tools and guidance, it becomes much easier. In this guide, we'll walk you through how to debug the Shardeum Validator running on a remote server using the Shardeum Validator debug script and Visual Studio Code (VS Code).
+
+## Understanding the Shardeum Debug Script
+
+The Shardeum Validator debug script is part of the Shardeum scripts repository and is designed to help developers connect to remote servers for debugging purposes. Here, we'll explore how to establish a secure SSH tunnel that facilitates this connection.
+
+### Prerequisites
+
+Before diving into debugging, ensure you have the [Shardeum repository](https://github.com/shardeum/shardeum) cloned on your local machine. Navigate to the `scripts/shardeumValidatorDebuggingScript` directory within the repository, and you'll find a [Readme file](https://github.com/shardeum/shardeum/blob/dev/scripts/shardeumValidatorDebuggingScript/README.md) with further instructions on usage.
+
+### Establishing an SSH Tunnel
+
+To start debugging, you first need to establish an SSH tunnel to the remote server where the Shardeum validator is running. 
+
+Run the `setup-shardium-debug` script from the Shardeum scripts directory.
+
+```bash
+./setup-shardium-debug
+```
+
+When you execute this script without arguments, it will display a usage guide. 
+
+```
+➜ ./setup_shardeum_debug.sh                                                                 
+Usage: ./setup_shardeum_debug.sh -s <server_ip> -u <username> -k <ssh_key_path> [-l <local_port>] [-r <remote_port>] [-i <container_image>]
+Example: ./setup_shardeum_debug.sh -s 34.85.136.16 -u shardeumcoredev -k ~/.ssh/shardus-ent-cf.pem -l 9229 -r 1337 -i ghcr.io/shardeum/server:dev
+```
+
+Three parameters are essential: 
+    - The IP address of the server, 
+    - The username, 
+    - And the key file for SSH login.
+
+Execute the script with these parameters. When prompted, confirm the server's identity to establish the SSH tunnel. This tunnel will persist as long as the script is running, allowing secure communication between your local machine and the remote server.
+
+![alt text](./1-run-script.gif)
+### Configuring VS Code for Remote Debugging
+
+Once the SSH tunnel is active, you can proceed to configure VS Code for remote debugging:
+
+- Open the cloned Shardeum repository in VS Code.
+- Locate the `launch.json` file in the `.vscode` directory of the cloned repository.
+- Copy the launch configuration in the [README file](https://github.com/shardeum/shardeum/blob/dev/scripts/shardeumValidatorDebuggingScript/README.md) and paste it into your `launch.json`.
+
+```json
+{
+  "type": "node",
+  "request": "attach",
+  "name": "Attach to Remote Better",
+  "port": 9229,
+  "sourceMaps": true,
+  "skipFiles": ["<node_internals>/**"],
+  "localRoot": "${workspaceFolder}",
+  "remoteRoot": "/usr/src/app"
+}
+```
+Save the file.
+
+### Launching the Debugger
+
+Now, with the configuration in place:
+
+- Navigate to the Debug tab in VS Code.
+- Select `Attach to Remote` (or whatever name you assigned the configuration) and start the debugger.
+- If there are no errors in the console, you are successfully connected.
+
+![alt text](./2-add-launch-config.gif)
+
+### Set Breakpoints and Debug
+
+You can now set breakpoints within your source code and begin debugging:
+
+- Open the source file you wish to debug, such as the `index.ts` file.
+- Set your breakpoints as needed. Remember, there may be mismatches if the remote server uses a different branch or code version than what you're working on locally. To avoid discrepancies, ensure your local branch matches the branch being used on the server.
+
+## Conclusion
+
+Following these steps, you should now be able to debug the Shardeum Validator running on a remote server using VS Code. For any additional information, consult the Readme file included with the Shardeum Validator scripts documentation, as it outlines further options and features available in the tool.
+
+Happy debugging!
