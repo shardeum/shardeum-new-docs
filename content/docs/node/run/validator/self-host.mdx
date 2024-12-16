@@ -142,13 +142,13 @@ Check that docker is working with (should return version 20.10.12 or higher):
 docker --version
 ```
 
-
-
 ## Download and Install Validator
 
-Run the following command:
+### Using cURL
 
-```
+To use the installer script, run the following command in your terminal:
+
+```shell
 curl -O https://raw.githubusercontent.com/shardeum/shardeum-validator/refs/heads/itn4/install.sh && chmod +x install.sh && ./install.sh
 ```
 
@@ -269,8 +269,47 @@ then try to start the shell script again.
 </Accordion>
 </Accordions>
 
+### Using Docker
 
+If you prefer to set up the validator directly using Docker, follow these steps:
 
+```shell
+docker pull ghcr.io/shardeum/shardeum-validator
+docker run \
+    --name shardeum-validator \
+    -p 8080:8080 \
+    -p 9001:9001 \
+    -p 10001:10001 \
+    -v $(pwd)/shardeum:/home/node/config \
+    --restart=always \
+    --detach \
+    ghcr.io/shardeum/shardeum-validator:latest
+docker exec -it shardeum-validator operator-cli gui set password "YOUR_NEW_PASSWORD"
+```
+
+<Callout title="" type="info">
+Replace `YOUR_NEW_PASSWORD with a secure password of your choice.
+</Callout>
+
+This will start the validator with the default ports, 8080 for the dashboard GUI, and `9001` and `10001` for the validator P2P ports. To change the default ports the validator uses, set the following environment variables. In this example:
+
+- The dashboard GUI port is set to 10080.
+- The validator P2P ports are set to 11001 (internal) and 12002 (external).
+
+```shell
+docker run \
+    --name validator-dashboard \
+    -p 10080:10080 \
+    -p 11001:11001 \
+    -p 12002:12002 \
+    -e SHMINT=11001 \
+    -e SHMEXT=12002 \
+    -e DASHPORT=10080 \
+    -v $(pwd)/shardeum:/home/node/config \
+    --restart=always \
+    --detach \
+    ghcr.io/shardeum/shardeum-validator
+```
 
 ## Open validator GUI
 
